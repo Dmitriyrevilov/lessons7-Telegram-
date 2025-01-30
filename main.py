@@ -1,5 +1,7 @@
 import ptbot
+
 import os
+from dotenv import load_dotenv
 
 from pytimeparse import parse
 
@@ -37,13 +39,14 @@ def notify_progress(secs_left, chat_id, message_id):
 
 
 def main():
+    load_dotenv()
+    global telegram_token
+    global bot
+    telegram_token = os.getenv("TG_TOKEN")
+    bot = ptbot.Bot(telegram_token)
     bot.reply_on_message(wait)
     bot.run_bot()
 
-
-TELEGRAM_TOKEN = os.getenv("TG_TOKEN")
-TELEGRAM_CHAT_ID = os.getenv("TG_CHAT_ID")
-bot = ptbot.Bot(TELEGRAM_TOKEN)
 
 if __name__ == "__main__":
     main()
